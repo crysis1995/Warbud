@@ -14,9 +14,7 @@ namespace Warbud.Users.Infrastructure.Data
         {
             
         }
-
-        public DbSet<InternalUser> InternalUsers { get; set; }         
-        public DbSet<ExternalUser> ExternalUsers { get; set; }         
+        public DbSet<ExternalUser> ExternalUsers { get; set; }
         public async Task<int> SaveChangesAsync()
         {
             var entries = ChangeTracker
@@ -37,9 +35,7 @@ namespace Warbud.Users.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new InternalUserConfiguration());
             builder.ApplyConfiguration(new ExternalUserConfiguration());
         }
-        
     }
 }

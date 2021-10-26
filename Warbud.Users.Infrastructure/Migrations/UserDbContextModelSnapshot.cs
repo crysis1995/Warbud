@@ -31,6 +31,10 @@ namespace Warbud.Users.Infrastructure.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -47,10 +51,17 @@ namespace Warbud.Users.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("ExternalUsers");
 
@@ -60,10 +71,12 @@ namespace Warbud.Users.Infrastructure.Migrations
                             Id = new Guid("f7260fe6-9b7d-4447-8d5d-4d8e5f9aa196"),
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 0,
+                            Email = "mietekkowalski@warbud.pl",
                             FirstName = "Mietek",
                             LastModifiedBy = 0,
                             LastName = "Kowalski",
-                            Role = 1
+                            PasswordHash = "HasloNapotrzebyMigracji",
+                            Role = 2
                         });
                 });
 
@@ -98,7 +111,13 @@ namespace Warbud.Users.Infrastructure.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
+                    b.Property<string>("WebConId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WebConId")
+                        .IsUnique();
 
                     b.ToTable("InternalUsers");
 

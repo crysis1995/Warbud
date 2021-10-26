@@ -7,7 +7,7 @@ namespace Warbud.Users.Database.Common
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Role Role { get; set; }
+        public Role Role { get; set; } = Role.Viewer;
         
         public DateTime Created { get; set; }
         public int CreatedBy { get; set; }

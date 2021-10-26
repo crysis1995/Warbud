@@ -7,7 +7,7 @@ namespace Warbud.Users.Installers
 {
     public class BdInstaller : IInstaller
     {
-        public void InstallServices(IServiceCollection services, IConfiguration configuration)
+        public void InstallServices( IServiceCollection services, IConfiguration configuration)
         {
             services.AddPooledDbContextFactory<UserDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("WarbudUserCS")));

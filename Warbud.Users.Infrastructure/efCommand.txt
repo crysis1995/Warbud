@@ -1,0 +1,2 @@
+﻿dotnet ef database update -s ../Warbud.Users
+dotnet ef migrations add updateUserIndexes -s ../Warbud.Users

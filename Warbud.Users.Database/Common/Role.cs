@@ -4,5 +4,6 @@
     {
         Admin = 0,
         BasicUser = 1,
+        Viewer = 2,
     }
 }

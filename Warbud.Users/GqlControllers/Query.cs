@@ -18,14 +18,5 @@ namespace Warbud.Users.GqlControllers
         {
             return context.ExternalUsers;
         }
-        
-        [UseDbContext(typeof(UserDbContext))]
-        [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
-        [UseFiltering]
-        [UseSorting]
-        public IQueryable<InternalUser> GetInternalUsers([ScopedService] UserDbContext context)
-        {
-            return context.InternalUsers;
-        }
     }
 }
