@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Warbud.Users.Infrastructure.Data;
 using Warbud.Users.Types.Inputs;
 
@@ -7,8 +8,10 @@ namespace Warbud.Users.Validators
 {
     public class ExternalUserInputValidator : AbstractValidator<AddExternalUserInput>
     {
-        public ExternalUserInputValidator(UserDbContext dbContext)
+        public ExternalUserInputValidator(IDbContextFactory<UserDbContext> dbContextFactory)
         {
+            var dbContext = dbContextFactory.CreateDbContext();
+
             RuleFor(input => input.Email)
                 .NotEmpty()
                 .EmailAddress();

@@ -19,7 +19,6 @@ namespace Warbud.Users.Types
             descriptor.Field(x => x.Password).Ignore();
             descriptor.Field(x => x.ConfirmPassword).Ignore();
             descriptor.Field(x => x.PasswordHash).Ignore();
-            
         }
     }
 }
