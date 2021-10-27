@@ -5,7 +5,7 @@ namespace Warbud.Users.Helpers
 {
     internal static class MutationHelper
     {
-        public static void UpdateEntity<TEntity, TInput>(this TEntity entity, TInput input) where TEntity : User
+        public static void UpdateEntity<TEntity, TInput>(this TEntity entity, TInput input) where TEntity : AuditableEntity
         {
             foreach (var prop in input.GetType().GetProperties().Where(x => x.GetValue(input) is not null))
             {

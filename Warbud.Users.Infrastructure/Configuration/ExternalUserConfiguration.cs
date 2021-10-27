@@ -44,7 +44,7 @@ namespace Warbud.Users.Infrastructure.Configuration
                 .Property(x => x.Email)
                 .IsRequired();
             
-            builder.HasData(SeedUsers());
+            //builder.HasData(SeedUsers());
         }
 
         private IEnumerable<ExternalUser> SeedUsers()

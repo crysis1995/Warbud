@@ -15,19 +15,22 @@ namespace Warbud.Users.Infrastructure.Data
             
         }
         public DbSet<ExternalUser> ExternalUsers { get; set; }
+        public DbSet<WarbudApp> WarbudApps { get; set; }
+        public DbSet<WarbudClaim> WarbudClaims { get; set; }
+        
         public async Task<int> SaveChangesAsync()
         {
             var entries = ChangeTracker
                 .Entries()
-                .Where(e => e.Entity is User && e.State is EntityState.Added or EntityState.Modified);
+                .Where(e => e.Entity is AuditableEntity && e.State is EntityState.Added or EntityState.Modified);
 
             foreach (var entityEntry in entries)
             {
-                ((User)entityEntry.Entity).LastModified = DateTime.UtcNow;
+                ((AuditableEntity)entityEntry.Entity).LastModified = DateTime.UtcNow;
 
                 if (entityEntry.State == EntityState.Added)
                 {
-                    ((User)entityEntry.Entity).Created = DateTime.UtcNow;
+                    ((AuditableEntity)entityEntry.Entity).Created = DateTime.UtcNow;
                 }
             }
             return await base.SaveChangesAsync().ConfigureAwait(false);
@@ -36,6 +39,8 @@ namespace Warbud.Users.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ExternalUserConfiguration());
+            builder.ApplyConfiguration(new WarbudClaimConfiguration());
+            builder.ApplyConfiguration(new WarbudAppConfiguration());
         }
     }
 }

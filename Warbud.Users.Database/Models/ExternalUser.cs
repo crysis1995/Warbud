@@ -2,7 +2,7 @@
 
 namespace Warbud.Users.Database.Models
 {
-    public class ExternalUser : User, IEntity
+    public class ExternalUser : User
     {
         public string Email { get; set; }
         public string PasswordHash { get; set; }

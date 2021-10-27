@@ -28,8 +28,8 @@ namespace Warbud.Users.Infrastructure.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -43,8 +43,8 @@ namespace Warbud.Users.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("LastModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("LastModifiedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -64,84 +64,61 @@ namespace Warbud.Users.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ExternalUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f7260fe6-9b7d-4447-8d5d-4d8e5f9aa196"),
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 0,
-                            Email = "mietekkowalski@warbud.pl",
-                            FirstName = "Mietek",
-                            LastModifiedBy = 0,
-                            LastName = "Kowalski",
-                            PasswordHash = "HasloNapotrzebyMigracji",
-                            Role = 2
-                        });
                 });
 
-            modelBuilder.Entity("Warbud.Users.Database.Models.InternalUser", b =>
+            modelBuilder.Entity("Warbud.Users.Database.Models.WarbudApp", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AppName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("LastModifiedBy")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("LastModifiedBy")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("ModuleName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("WebConId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("WebConId")
-                        .IsUnique();
+                    b.ToTable("WarbudApps");
+                });
 
-                    b.ToTable("InternalUsers");
+            modelBuilder.Entity("Warbud.Users.Database.Models.WarbudClaim", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d27c7fed-8942-4158-a006-0850a6f16f57"),
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 0,
-                            FirstName = "Adrian",
-                            LastModifiedBy = 0,
-                            LastName = "Franczak",
-                            Role = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("99185134-57e5-4329-af88-62d3624490a4"),
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 0,
-                            FirstName = "Krzysztof",
-                            LastModifiedBy = 0,
-                            LastName = "Kaczor",
-                            Role = 0
-                        });
+                    b.Property<int>("AppId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("UserId", "AppId", "ProjectId");
+
+                    b.ToTable("WarbudClaims");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,7 @@ using HotChocolate.Types;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Warbud.Users.Authentication;
+using Warbud.Users.Constants;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Infrastructure.Data;
 using Warbud.Users.Types.Inputs;
@@ -18,7 +19,6 @@ namespace Warbud.Users.GqlControllers
 {
     public class Query
     {
-        
         private readonly IPasswordHasher<ExternalUser> _passwordHasher;        
         private readonly AuthenticationSettings _authenticationSettings;
 
@@ -40,28 +40,27 @@ namespace Warbud.Users.GqlControllers
         [UseDbContext(typeof(UserDbContext))]
         public string Login(LoginExternalUserInput input, [ScopedService] UserDbContext context)
         {
-            var user = context.ExternalUsers.FirstOrDefault(x => x.Email == input.Email);
+            var (email, password) = input;
+            var user = context.ExternalUsers.FirstOrDefault(x => x.Email == email);
             if (user is null)
             {
                 return "Invalid username or password";
             }
-
-            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, input.Password);
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             if (result == PasswordVerificationResult.Failed)
             {
                 return "Invalid username or password";
             }
+            
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Role, $"{user.Role.ToString()}"),
-                //new Claim("ObjectTypeClaim", new ClaimObject("test", 1, user.Role.ToString()) ),
+                new Claim(Claims.Names.Id, user.Id.ToString()),
+                new Claim(Claims.Names.Role, $"{user.Role.ToString()}"),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays((_authenticationSettings.JwtExpireDays));
+            var expires = DateTime.Now.AddMinutes((_authenticationSettings.JwtExpireMinutes));
 
             var token = new JwtSecurityToken(
                 _authenticationSettings.JwtIssuer,
@@ -74,6 +73,4 @@ namespace Warbud.Users.GqlControllers
             return  tokenHandler.WriteToken(token);
         }
     }
-
-    internal record ClaimObject(string Name, int Number, string Role);
 }

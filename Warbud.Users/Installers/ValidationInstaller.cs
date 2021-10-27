@@ -13,6 +13,7 @@ namespace Warbud.Users.Installers
         {
             services.AddFluentValidation();
             services.AddTransient<IValidator<AddExternalUserInput>, ExternalUserInputValidator>();
+            services.AddTransient<IValidator<AddWarbudAppInput>, WarbudAppInputValidator>();
         }
     }
 }

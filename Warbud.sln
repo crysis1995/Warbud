@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Types", "Warbu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.ReverseProxy", "Warbud.ReverseProxy\Warbud.ReverseProxy.csproj", "{4E841743-BF19-4472-B438-3EBC12ECCD5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Tests", "Warbud.Tests\Warbud.Tests.csproj", "{F3F00990-2AD0-41E5-B117-ABA149C137BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{4E841743-BF19-4472-B438-3EBC12ECCD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E841743-BF19-4472-B438-3EBC12ECCD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E841743-BF19-4472-B438-3EBC12ECCD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F00990-2AD0-41E5-B117-ABA149C137BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F00990-2AD0-41E5-B117-ABA149C137BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F00990-2AD0-41E5-B117-ABA149C137BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F00990-2AD0-41E5-B117-ABA149C137BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
