@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
@@ -35,6 +36,12 @@ namespace Warbud.Users.GqlControllers
         public IQueryable<ExternalUser> GetExternalUsers([ScopedService] UserDbContext context)
         {
             return context.ExternalUsers;
+        }
+        
+        [UseDbContext(typeof(UserDbContext))]
+        public async Task<ExternalUser> GetExternalUsersById(Guid id, [ScopedService] UserDbContext context)
+        {
+            return await context.ExternalUsers.FindAsync(id);
         }
         
         [UseDbContext(typeof(UserDbContext))]
@@ -71,6 +78,42 @@ namespace Warbud.Users.GqlControllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
             return  tokenHandler.WriteToken(token);
+        }
+        
+        [UseDbContext(typeof(UserDbContext))]
+        public async Task<WarbudApp> GetAppById(int id, [ScopedService] UserDbContext context)
+        {
+            return await context.WarbudApps.FindAsync(id);
+        }
+        
+        [UseDbContext(typeof(UserDbContext))]
+        [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<WarbudApp> GetApps([ScopedService] UserDbContext context)
+        {
+            return context.WarbudApps;
+        }
+        
+        [UseDbContext(typeof(UserDbContext))]
+        public async Task<WarbudClaim> GetClaimById(GetWarbudClaimInput input, [ScopedService] UserDbContext context)
+        {
+            var (userId, appId, projectId) = input;
+            return await context.WarbudClaims.FindAsync(userId, appId, projectId);
+        }
+        
+        [UseDbContext(typeof(UserDbContext))]
+        [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<WarbudClaim> GetAllClaimByUserId(Guid id, [ScopedService] UserDbContext context)
+        {
+            return  context.WarbudClaims.Where(x => x.UserId == id);
+        }
+
+        public List<string> GetClaimsName()
+        {
+            return Claims.RoleValues.GetValueList();
         }
     }
 }

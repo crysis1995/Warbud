@@ -15,8 +15,6 @@ namespace Warbud.Users.GqlControllers
 {
     public partial class Mutations
     {
-        private readonly IValidator<AddWarbudAppInput> _appValidator;
-
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudAppPayload> AddAppAsync(AddWarbudAppInput input, [ScopedService] UserDbContext context)
         {
@@ -44,7 +42,7 @@ namespace Warbud.Users.GqlControllers
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudAppPayload> UpdateAppAsync(UpdateWarbudAppInput input, [ScopedService] UserDbContext context)
         {
-            var app = context.WarbudApps.FirstOrDefault(x => x.Id == input.Id);
+            var app =await  context.WarbudApps.FindAsync(input.Id);
             if (app is null)
             {
                 throw new ArgumentException("There is no app with given Id");
@@ -58,7 +56,7 @@ namespace Warbud.Users.GqlControllers
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteAppAsync(int id, [ScopedService] UserDbContext context)
         {
-            var app = context.WarbudApps.SingleOrDefault(x => x.Id == id);
+            var app = await context.WarbudApps.FindAsync(id);
             if (app is null)
             {
                 return false;

@@ -18,5 +18,20 @@ namespace Warbud.Users.Database.Models
         public int AppId { get;  private set;}
         public int ProjectId { get;  private set;}
         public string Name { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is WarbudClaim claim && Equals(claim);
+        }
+
+        protected bool Equals(WarbudClaim other)
+        {
+            return UserId.Equals(other.UserId) && AppId == other.AppId && ProjectId == other.ProjectId;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(UserId, AppId, ProjectId);
+        }
     }
 }
