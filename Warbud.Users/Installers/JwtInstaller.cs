@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,7 @@ namespace Warbud.Users.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             var authSettings = new AuthenticationSettings();
-
+            
             services.AddSingleton(authSettings);
             configuration.GetSection("Auth").Bind(authSettings);
 
@@ -25,11 +26,13 @@ namespace Warbud.Users.Installers
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
+                    
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidIssuer = authSettings.JwtIssuer,
                         ValidAudience = authSettings.JwtIssuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.JwtKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.JwtKey)),
+                        ClockSkew = new TimeSpan(authSettings.TicksPerSecond * authSettings.ClockSkew)
                     };
                 });
         }

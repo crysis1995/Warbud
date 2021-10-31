@@ -15,7 +15,8 @@ namespace Warbud.Users.Installers
                 .AddMutationType<Mutations>()
                 .AddType<ExternalUserType>()
                 .AddFiltering()
-                .AddSorting();
+                .AddSorting()
+                .AddAuthorization();
         }
     }
 }

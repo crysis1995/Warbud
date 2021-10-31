@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
+using Warbud.Users.Constants;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Helpers;
 using Warbud.Users.Infrastructure.Data;
@@ -41,8 +43,9 @@ namespace Warbud.Users.GqlControllers
             }
         }
 
+        [Authorize]
         [UseDbContext(typeof(UserDbContext))]
-        public async Task<UserPayload> UpdateUserAsync(UpdateUserInput input, [ScopedService] UserDbContext context)
+        public async Task<UserPayload> UpdateUserAsync(UpdateExternalUserInput input, [ScopedService] UserDbContext context)
         {
             var user = await context.ExternalUsers.FindAsync(input.Id);
             if (user is null) throw new ArgumentException("There is no user with given Id");
@@ -51,6 +54,7 @@ namespace Warbud.Users.GqlControllers
             return new UserPayload(user);
         }
 
+        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<UserPayload> UpdateUserRoleAsync(UpdateUserRoleInput input,
             [ScopedService] UserDbContext context)
@@ -63,6 +67,7 @@ namespace Warbud.Users.GqlControllers
             return new UserPayload(user);
         }
 
+        [Authorize(Roles = new []{Claims.RoleValues.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteUserAsync(Guid id, [ScopedService] UserDbContext context)
         {

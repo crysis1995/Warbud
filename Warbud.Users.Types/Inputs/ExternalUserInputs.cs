@@ -20,6 +20,6 @@ namespace Warbud.Users.Types.Inputs
     /// <param name="FirstName"></param>
     /// <param name="LastName"></param>
 #nullable enable
-    public record UpdateUserInput(Guid Id, string? FirstName = null, string? LastName = null);
+    public record UpdateExternalUserInput(Guid Id, string? FirstName = null, string? LastName = null, string? Email = null);
 #nullable disable
 }

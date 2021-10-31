@@ -19,7 +19,9 @@ namespace Warbud.Users.Database.Models
         public int ProjectId { get;  private set;}
         public string Name { get; set; }
 
+#pragma warning disable 8632
         public override bool Equals(object? obj)
+#pragma warning restore 8632
         {
             return obj is WarbudClaim claim && Equals(claim);
         }

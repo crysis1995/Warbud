@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
+using Warbud.Users.Constants;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Helpers;
 using Warbud.Users.Infrastructure.Data;
@@ -13,6 +15,7 @@ namespace Warbud.Users.GqlControllers
 {
     public partial class Mutations
     {
+        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudClaimPayload> AddClaimAsync(AddWarbudClaimInput input,
             [ScopedService] UserDbContext context)
@@ -36,6 +39,7 @@ namespace Warbud.Users.GqlControllers
             }
         }
 
+        [Authorize(Roles = new []{Claims.RoleValues.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudAppPayload> UpdateClaimAsync(UpdateWarbudClaimInput input,
             [ScopedService] UserDbContext context)
@@ -49,6 +53,7 @@ namespace Warbud.Users.GqlControllers
             return new WarbudAppPayload(claim);
         }
 
+        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteClaimAsync(DeleteWarbudClaimInput input, [ScopedService] UserDbContext context)
         {

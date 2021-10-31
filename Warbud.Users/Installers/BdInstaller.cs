@@ -10,7 +10,7 @@ namespace Warbud.Users.Installers
         public void InstallServices( IServiceCollection services, IConfiguration configuration)
         {
             services.AddPooledDbContextFactory<UserDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("WarbudUserCS")));
+                options.UseNpgsql(configuration.GetConnectionString("WarbudUserCS")).EnableSensitiveDataLogging());
         }
     }
 }
