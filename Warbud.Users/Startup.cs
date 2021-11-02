@@ -14,7 +14,6 @@ namespace Warbud.Users
     public class Startup
     {
         private readonly IConfiguration _config;
-
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -24,14 +23,18 @@ namespace Warbud.Users
         {
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Policy.PolicyNames.Owner, builder =>
-                    builder.RequireClaim(Claims.ClaimsNames.Role, Policy.PolicyValues.Admin,
-                        Policy.PolicyValues.BasicUser));
-                options.AddPolicy(Policy.PolicyNames.DoILikeYou,
-                    builder => builder.AddRequirements(new DoILikeYouRequirements(true)));
+                options.AddPolicy(Policy.PolicyNames.DoILikeYou, builder =>
+                    builder.RequireClaim(Claims.ClaimsNames.Role, 
+                        Claims.RoleValues.Admin, 
+                        Claims.RoleValues.BasicUser));
+                options.AddPolicy(Policy.PolicyNames.AdminOrOwner,
+                    builder => builder.AddRequirements(new ResourceOperationRequirement(ResourceOperation.Update)));
+                // options.AddPolicy(Policy.PolicyNames.DoILikeYou,
+                //     builder => builder.AddRequirements(new DoILikeYouRequirements(true)));
+                
             });
 
-            services.AddScoped<IAuthorizationHandler, DoILikeYouRequirementsHandler>();
+            //services.AddScoped<IAuthorizationHandler, DoILikeYouRequirementsHandler>();
             services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
 
             services.AddScoped<IUserContextService, UserContextService>();

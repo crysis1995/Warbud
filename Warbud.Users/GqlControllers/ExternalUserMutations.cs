@@ -43,7 +43,7 @@ namespace Warbud.Users.GqlControllers
             }
         }
 
-        [Authorize]
+        [Authorize(Policy = Policy.PolicyNames.AdminOrOwner)]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<UserPayload> UpdateUserAsync(UpdateExternalUserInput input, [ScopedService] UserDbContext context)
         {

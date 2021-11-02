@@ -35,18 +35,8 @@ namespace Warbud.Users.Constants
     {
         public static class PolicyNames
         {
-            public const string Owner  = "Owner";
+            public const string AdminOrOwner  = "AdminOrOwner";
             public const string DoILikeYou  = "DoILikeYou";
-        }
-        
-        public static class PolicyValues
-        {
-            public const string Admin  = "Admin";
-            public const string BasicUser  = "BasicUser";
-            public const string Viewer  = "Viewer";
-            public const string Yes  = "Yes";
-            public const string No  = "No";
-            
         }
     }
 }

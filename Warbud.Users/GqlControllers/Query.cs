@@ -45,7 +45,7 @@ namespace Warbud.Users.GqlControllers
             return context.ExternalUsers;
         }
 
-        [Authorize] //Kto moze pobierac innych po ID? //Domyslnie mozna zrobic zapytanie pod /Me
+        [Authorize] //TODO Kto moze pobierac innych po ID? //Domyslnie mozna zrobic zapytanie pod /Me BasicUser+ ale pytanie tylko o czesc danych jak nie jestes adminem
         [UseDbContext(typeof(UserDbContext))]
         public async Task<ExternalUser> GetExternalUsersById(Guid id, [ScopedService] UserDbContext context)
         {
@@ -61,6 +61,7 @@ namespace Warbud.Users.GqlControllers
             return await context.ExternalUsers.FindAsync(userId);
         }
 
+        //TODO refactor
         [UseDbContext(typeof(UserDbContext))]
         public string Login(LoginExternalUserInput input, [ScopedService] UserDbContext context)
         {
@@ -116,12 +117,14 @@ namespace Warbud.Users.GqlControllers
             return await context.WarbudClaims.FindAsync(userId, appId, projectId);
         }
 
-        [Authorize(Roles = new[] {Claims.RoleValues.BasicUser, Claims.RoleValues.Admin})]
+        // TODO Get all my WarbudClaims
+        //[Authorize(Roles = new[] {Claims.RoleValues.BasicUser, Claims.RoleValues.Admin})]
+        [Authorize(Policy = Policy.PolicyNames.DoILikeYou)]
         [UseDbContext(typeof(UserDbContext))]
         [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
         [UseFiltering]
         [UseSorting]
-        public IQueryable<WarbudClaim> GetAllClaimByUserId(Guid id, [ScopedService] UserDbContext context)
+        public IQueryable<WarbudClaim> GetAllWarbudClaimByUserId(Guid id, [ScopedService] UserDbContext context)
         {
             return context.WarbudClaims.Where(x => x.UserId == id);
         }
