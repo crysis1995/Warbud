@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Warbud.Users.Constants;
+using Warbud.Shared.Constants;
 using Warbud.Users.Infrastructure.Data;
 using Warbud.Users.Types.Inputs;
 
@@ -33,7 +33,7 @@ namespace Warbud.Users.Validators
             
            RuleFor(input => input.Name).NotEmpty().NotNull().Length(2, 50).Custom((name, context) =>
            {
-               var claimValue = Claims.ClaimValues.GetValueList();
+               var claimValue = Claim.Value.GetValueList();
 
                if (claimValue.All(x => x != name))
                {

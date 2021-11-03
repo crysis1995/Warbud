@@ -4,7 +4,7 @@ using FluentValidation;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
-using Warbud.Users.Constants;
+using Warbud.Shared.Constants;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Helpers;
 using Warbud.Users.Infrastructure.Data;
@@ -13,7 +13,7 @@ using Warbud.Users.Types.Payloads;
 
 namespace Warbud.Users.GqlControllers
 {
-    public partial class Mutations
+    public partial class Mutation
     {
         [UseDbContext(typeof(UserDbContext))]
         public async Task<ExternalUserPayload> AddExternalUserAsync(AddExternalUserInput input,
@@ -43,7 +43,7 @@ namespace Warbud.Users.GqlControllers
             }
         }
 
-        [Authorize(Policy = Policy.PolicyNames.AdminOrOwner)]
+        [Authorize(Policy = Policy.Name.AdminOrOwner)]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<UserPayload> UpdateUserAsync(UpdateExternalUserInput input, [ScopedService] UserDbContext context)
         {
@@ -54,7 +54,7 @@ namespace Warbud.Users.GqlControllers
             return new UserPayload(user);
         }
 
-        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{ Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<UserPayload> UpdateUserRoleAsync(UpdateUserRoleInput input,
             [ScopedService] UserDbContext context)
@@ -67,7 +67,7 @@ namespace Warbud.Users.GqlControllers
             return new UserPayload(user);
         }
 
-        [Authorize(Roles = new []{Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteUserAsync(Guid id, [ScopedService] UserDbContext context)
         {

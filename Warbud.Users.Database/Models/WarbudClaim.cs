@@ -1,8 +1,9 @@
 ﻿using System;
+using Warbud.Users.Database.Common;
 
 namespace Warbud.Users.Database.Models
 {
-    public class WarbudClaim
+    public class WarbudClaim : IEntity
     {
         private WarbudClaim(){}
 

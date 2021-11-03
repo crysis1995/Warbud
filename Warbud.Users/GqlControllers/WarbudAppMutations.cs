@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentValidation;
-using System.Linq;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
@@ -9,15 +8,14 @@ using Warbud.Users.Database.Models;
 using Warbud.Users.Infrastructure.Data;
 using Warbud.Users.Types.Inputs;
 using Warbud.Users.Types.Payloads;
-using Microsoft.AspNetCore.Identity;
-using Warbud.Users.Constants;
+using Warbud.Shared.Constants;
 using Warbud.Users.Helpers;
 
 namespace Warbud.Users.GqlControllers
 {
-    public partial class Mutations
+    public partial class Mutation
     {
-        [Authorize(Roles = new []{Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudAppPayload> AddAppAsync(AddWarbudAppInput input, [ScopedService] UserDbContext context)
         {
@@ -42,7 +40,7 @@ namespace Warbud.Users.GqlControllers
             }
         }
         
-        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{ Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudAppPayload> UpdateAppAsync(UpdateWarbudAppInput input, [ScopedService] UserDbContext context)
         {
@@ -56,7 +54,7 @@ namespace Warbud.Users.GqlControllers
             return new WarbudAppPayload(app);
         }
         
-        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{ Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteAppAsync(int id, [ScopedService] UserDbContext context)
         {

@@ -1,5 +1,4 @@
-﻿using HotChocolate.AspNetCore.Authorization;
-using Warbud.Users.Database.Common;
+﻿using Warbud.Users.Database.Common;
 
 namespace Warbud.Users.Database.Models
 {

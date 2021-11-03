@@ -4,7 +4,7 @@ using FluentValidation;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
-using Warbud.Users.Constants;
+using Warbud.Shared.Constants;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Helpers;
 using Warbud.Users.Infrastructure.Data;
@@ -13,9 +13,9 @@ using Warbud.Users.Types.Payloads;
 
 namespace Warbud.Users.GqlControllers
 {
-    public partial class Mutations
+    public partial class Mutation
     {
-        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{ Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<WarbudClaimPayload> AddClaimAsync(AddWarbudClaimInput input,
             [ScopedService] UserDbContext context)
@@ -39,21 +39,21 @@ namespace Warbud.Users.GqlControllers
             }
         }
 
-        [Authorize(Roles = new []{Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
-        public async Task<WarbudAppPayload> UpdateClaimAsync(UpdateWarbudClaimInput input,
+        public async Task<WarbudClaimPayload> UpdateClaimAsync(UpdateWarbudClaimInput input,
             [ScopedService] UserDbContext context)
         {
             var (userId, appId, projectId, name) = input;
 
-            var claim = await context.WarbudApps.FindAsync(userId, appId, projectId);
+            var claim = await context.WarbudClaims.FindAsync(userId, appId, projectId);
             if (claim is null) throw new ArgumentException("There is no claim with given Id");
             claim.UpdateEntity(input);
             await context.SaveChangesAsync().ConfigureAwait(false);
-            return new WarbudAppPayload(claim);
+            return new WarbudClaimPayload(claim);
         }
 
-        [Authorize(Roles = new []{ Claims.RoleValues.Admin})]
+        [Authorize(Roles = new []{ Role.Name.Admin})]
         [UseDbContext(typeof(UserDbContext))]
         public async Task<bool> DeleteClaimAsync(DeleteWarbudClaimInput input, [ScopedService] UserDbContext context)
         {

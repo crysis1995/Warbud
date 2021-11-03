@@ -2,7 +2,7 @@
 
 namespace Warbud.Users.Database.Models
 {
-    public class WarbudApp : AuditableEntity
+    public class WarbudApp : AuditableEntity, IEntity
     {
         public int Id { get; set; }
         public string AppName { get; set; }

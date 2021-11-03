@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Warbud.Users.Authentication;
-using Warbud.Users.Constants;
+using Warbud.Shared.Constants;
 using Warbud.Users.Installers;
 using Warbud.Users.Services;
 
@@ -21,24 +21,21 @@ namespace Warbud.Users
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Policy.PolicyNames.DoILikeYou, builder =>
-                    builder.RequireClaim(Claims.ClaimsNames.Role, 
-                        Claims.RoleValues.Admin, 
-                        Claims.RoleValues.BasicUser));
-                options.AddPolicy(Policy.PolicyNames.AdminOrOwner,
-                    builder => builder.AddRequirements(new ResourceOperationRequirement(ResourceOperation.Update)));
-                // options.AddPolicy(Policy.PolicyNames.DoILikeYou,
-                //     builder => builder.AddRequirements(new DoILikeYouRequirements(true)));
-                
-            });
-
-            //services.AddScoped<IAuthorizationHandler, DoILikeYouRequirementsHandler>();
-            services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
-
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
+            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policy.Name.VerifiedUser,
+                    policy => policy.Requirements.Add(new VerifiedUserRequirement()));
+                options.AddPolicy(Policy.Name.AdminOrOwner,
+                    policy => policy.Requirements.Add(new AdminOrOwnerRequirement()));
+            });
+            
+            services.AddSingleton<IAuthorizationHandler, VerifiedUserRequirementsHandler>();
+            services.AddSingleton<IAuthorizationHandler, AdminOrOwnerRequirementHandler>();
+
+            
             services.InstallServicesInAssembly(_config);
         }
 

@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Warbud.Shared\Warbud.Shared.csproj" />
       <ProjectReference Include="..\Warbud.Users.Infrastructure\Warbud.Users.Infrastructure.csproj" />
       <ProjectReference Include="..\Warbud.Users.Types\Warbud.Users.Types.csproj" />
     </ItemGroup>

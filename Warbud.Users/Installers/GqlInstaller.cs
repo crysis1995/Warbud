@@ -12,7 +12,7 @@ namespace Warbud.Users.Installers
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
-                .AddMutationType<Mutations>()
+                .AddMutationType<Mutation>()
                 .AddType<ExternalUserType>()
                 .AddFiltering()
                 .AddSorting()
