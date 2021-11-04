@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Warbud.Shared.Interfaces;
 using Warbud.Users.Database.Common;
 
 namespace Warbud.Users.Helpers

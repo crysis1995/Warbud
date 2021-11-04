@@ -14,6 +14,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Tests", "Warbud.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Shared", "Warbud.Shared\Warbud.Shared.csproj", "{93D4845C-26D3-4ED7-9F3C-CF60BB42B736}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.MediatR", "Warbud.MediatR\Warbud.MediatR.csproj", "{BD3BD2D9-80FC-4BC2-8013-A0E5FCA21C58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects", "Warbud.Projects\Warbud.Projects.csproj", "{F8D94CCE-FB79-4BC4-9C56-91C8A19E9E43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects.Database", "Warbud.Projects.Database\Warbud.Projects.Database.csproj", "{6DAD3258-1C17-4FA8-BC03-74801DD485B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects.Infrastructure", "Warbud.Projects.Infrastructure\Warbud.Projects.Infrastructure.csproj", "{5F15D9B7-B217-4380-AC77-AED982D06ECC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +56,21 @@ Global
 		{93D4845C-26D3-4ED7-9F3C-CF60BB42B736}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D4845C-26D3-4ED7-9F3C-CF60BB42B736}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D4845C-26D3-4ED7-9F3C-CF60BB42B736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3BD2D9-80FC-4BC2-8013-A0E5FCA21C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3BD2D9-80FC-4BC2-8013-A0E5FCA21C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3BD2D9-80FC-4BC2-8013-A0E5FCA21C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3BD2D9-80FC-4BC2-8013-A0E5FCA21C58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D94CCE-FB79-4BC4-9C56-91C8A19E9E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D94CCE-FB79-4BC4-9C56-91C8A19E9E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D94CCE-FB79-4BC4-9C56-91C8A19E9E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D94CCE-FB79-4BC4-9C56-91C8A19E9E43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DAD3258-1C17-4FA8-BC03-74801DD485B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DAD3258-1C17-4FA8-BC03-74801DD485B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DAD3258-1C17-4FA8-BC03-74801DD485B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DAD3258-1C17-4FA8-BC03-74801DD485B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

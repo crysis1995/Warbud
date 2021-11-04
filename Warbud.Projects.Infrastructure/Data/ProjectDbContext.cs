@@ -2,23 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Warbud.Projects.Database.Models;
+using Warbud.Projects.Infrastructure.Configuration;
 using Warbud.Shared.Abstraction;
-using Warbud.Users.Database.Common;
-using Warbud.Users.Database.Models;
-using Warbud.Users.Infrastructure.Configuration;
 
-namespace Warbud.Users.Infrastructure.Data
+namespace Warbud.Projects.Infrastructure.Data
 {
-    public class UserDbContext : DbContext
+    public class ProjectDbContext : DbContext
     {
-        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
+        public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options)
         {
         }
+        
+        
 
-        public DbSet<ExternalUser> ExternalUsers { get; set; }
-        public DbSet<WarbudApp> WarbudApps { get; set; }
-        public DbSet<WarbudClaim> WarbudClaims { get; set; }
-        public DbSet<UserStatistic> UserStatistics { get; set; }
+        public DbSet<WarbudProject> ExternalUsers { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
@@ -39,10 +37,7 @@ namespace Warbud.Users.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new ExternalUserConfiguration());
-            builder.ApplyConfiguration(new WarbudClaimConfiguration());
-            builder.ApplyConfiguration(new WarbudAppConfiguration());
-            builder.ApplyConfiguration(new UserStatisticConfiguration());
+            builder.ApplyConfiguration(new WarbudProjectConfiguration());
         }
     }
 }

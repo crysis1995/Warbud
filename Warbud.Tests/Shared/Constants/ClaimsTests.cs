@@ -1,7 +1,7 @@
 using Warbud.Shared.Constants;
 using Xunit;
 
-namespace Warbud.Tests.Users.Constants
+namespace Warbud.Tests.Shared.Constants
 {
     public class ClaimsTests
     {

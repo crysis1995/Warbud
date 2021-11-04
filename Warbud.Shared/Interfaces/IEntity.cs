@@ -1,4 +1,4 @@
-﻿namespace Warbud.Users.Database.Common
+﻿namespace Warbud.Shared.Interfaces
 {
     public interface IEntity
     {

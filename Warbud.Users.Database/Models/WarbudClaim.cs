@@ -1,4 +1,5 @@
 ﻿using System;
+using Warbud.Shared.Interfaces;
 using Warbud.Users.Database.Common;
 
 namespace Warbud.Users.Database.Models

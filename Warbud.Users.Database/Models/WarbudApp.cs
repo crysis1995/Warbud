@@ -1,4 +1,6 @@
-﻿using Warbud.Users.Database.Common;
+﻿using Warbud.Shared.Abstraction;
+using Warbud.Shared.Interfaces;
+using Warbud.Users.Database.Common;
 
 namespace Warbud.Users.Database.Models
 {

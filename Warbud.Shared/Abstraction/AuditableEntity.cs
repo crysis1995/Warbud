@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Warbud.Users.Database.Common
+namespace Warbud.Shared.Abstraction
 {
     public abstract class AuditableEntity
     {
