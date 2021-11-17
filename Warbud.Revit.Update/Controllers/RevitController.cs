@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Warbud.Revit.Update.Models;
 
@@ -21,24 +22,6 @@ namespace Warbud.Revit.Update.Controllers
         {
             var result = JsonSerializer.Serialize(_programVersion);
             return Ok(result);
-        }
-        
-        [HttpGet]
-        public IActionResult Ribbon()
-        {
-            return Ok(_programVersion.RibbonVersion);
-        }
-        
-        [HttpGet]
-        public IActionResult Client()
-        {
-            return Ok(_programVersion.ClientVersion);
-        }
-        
-        [HttpGet]
-        public IActionResult Updater()
-        {
-            return Ok(_programVersion.UpdaterVersion);
         }
         
         [HttpPost]
