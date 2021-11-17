@@ -9,8 +9,5 @@ namespace Warbud.Users.Database.Models
         public string PasswordHash { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        
-        [Authorize(Roles = new [] {Shared.Constants.Role.Name.Admin})]
-        public UserStatistic UserStatistic { get; set; }
     }
 }

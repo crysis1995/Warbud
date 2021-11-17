@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Warbud.Users.Database.Common;
 using Warbud.Users.Database.Models;
+using Warbud.Users.GqlControllers;
 using Warbud.Users.Infrastructure.Data;
 using Warbud.Users.Types.Inputs;
 using Xunit;
@@ -11,9 +15,9 @@ namespace Warbud.Tests.Users.Api.GqlControllers
 {
     public class ExternalUserMutationsTest
     {
-        public ExternalUser Owner { get; set; } = new(){Id = Guid.NewGuid(), FirstName = "InitName"};
+        public ExternalUser Owner { get; set; } = new() {Id = Guid.NewGuid(), FirstName = "InitName"};
         public ExternalUser Editor { get; set; } = new();
-        
+
         [Theory]
         [InlineData(Role.Admin, true)]
         [InlineData(Role.BasicUser, true)]
@@ -23,22 +27,40 @@ namespace Warbud.Tests.Users.Api.GqlControllers
         [InlineData(Role.Viewer, false)]
         public async Task UpdateUser_ShouldUpdateUser_WhenUserIsAdminOrOwner(Role editorRole, bool owner)
         {
+            //Arrange
             Editor.Id = owner ? Owner.Id : Guid.NewGuid();
             Editor.Role = editorRole;
             var input = new UpdateExternalUserInput(Editor.Id, "UpdatedName");
+           
             
-            // var userRepository = new Mock<UserDbContext>();
-            // userRepository.Setup(x => x.ExternalUsers).ReturnsAsync(new[] {Owner, Editor});
-            // userRepository.Setup(x => x.UpdateUserAsync(It.IsAny<User>())).ReturnsAsync(user);
-            //
-            // var result = await userController.UpdateUser(input);
-            //
-            // Assert.NotNull(result);
-            // Assert.Equal(user.Id, result.Id);
-            // Assert.Equal(user.Role, result.Role);
-            //  
-            // Warbud.Users.GqlControllers.Mutation mutations = new();
-            // await mutations.UpdateUserAsync(input, new UserDbContext());
+            var userRepository = new Mock<UserDbContext>();
+            var usersMock = new Mock<DbSet<ExternalUser>>();
+            usersMock.Setup(x => x.FindAsync(It.IsAny<ExternalUser>()))
+                .ReturnsAsync(Owner);
+            userRepository.Setup(x => x.ExternalUsers).Returns(usersMock.Object);
+            
+            var passwordHasher = new Mock<IPasswordHasher<ExternalUser>>();
+            var userValidator = new Mock<IValidator<AddExternalUserInput>>();
+            var appValidator = new Mock<IValidator<AddWarbudAppInput>>();
+            var claimValidator = new Mock<IValidator<AddWarbudClaimInput>>();
+            
+            Mutation mutations = new(passwordHasher.Object, userValidator.Object, appValidator.Object,
+                claimValidator.Object);
+
+            //Act
+            var result = await mutations.UpdateUserAsync(input, userRepository.Object);
+
+            //Assert
+            if (owner || editorRole == Role.Admin)
+            {
+                Assert.Equal(input.FirstName, Owner.FirstName);
+                Assert.Equal(input.FirstName, result.User.FirstName);
+            }
+            else
+            {
+                Assert.NotEqual(input.FirstName, Owner.FirstName);
+                Assert.Equal(input.FirstName, result.User.FirstName);
+            }
         }
     }
 }

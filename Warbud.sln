@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects.Database", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects.Infrastructure", "Warbud.Projects.Infrastructure\Warbud.Projects.Infrastructure.csproj", "{5F15D9B7-B217-4380-AC77-AED982D06ECC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Revit.Update", "Warbud.Revit.Update\Warbud.Revit.Update.csproj", "{744FE5B8-99FE-47C1-A315-385BE3726589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,9 @@ Global
 		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F15D9B7-B217-4380-AC77-AED982D06ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744FE5B8-99FE-47C1-A315-385BE3726589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744FE5B8-99FE-47C1-A315-385BE3726589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744FE5B8-99FE-47C1-A315-385BE3726589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744FE5B8-99FE-47C1-A315-385BE3726589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

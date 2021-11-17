@@ -66,6 +66,49 @@ namespace Warbud.Users.Infrastructure.Migrations
                     b.ToTable("ExternalUsers");
                 });
 
+            modelBuilder.Entity("Warbud.Users.Database.Models.UserStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("AppName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ComputerName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("OperationAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("OperationName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<long?>("OperationTimeMs")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UserDomainName")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserStatistics");
+                });
+
             modelBuilder.Entity("Warbud.Users.Database.Models.WarbudApp", b =>
                 {
                     b.Property<int>("Id")

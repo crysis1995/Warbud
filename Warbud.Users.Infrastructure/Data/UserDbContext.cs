@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Warbud.Shared.Abstraction;
-using Warbud.Users.Database.Common;
 using Warbud.Users.Database.Models;
 using Warbud.Users.Infrastructure.Configuration;
 
@@ -15,10 +14,10 @@ namespace Warbud.Users.Infrastructure.Data
         {
         }
 
-        public DbSet<ExternalUser> ExternalUsers { get; set; }
-        public DbSet<WarbudApp> WarbudApps { get; set; }
-        public DbSet<WarbudClaim> WarbudClaims { get; set; }
-        public DbSet<UserStatistic> UserStatistics { get; set; }
+        public virtual DbSet<ExternalUser> ExternalUsers { get; set; }
+        public virtual DbSet<WarbudApp> WarbudApps { get; set; }
+        public virtual DbSet<WarbudClaim> WarbudClaims { get; set; }
+        public virtual DbSet<UserStatistic> UserStatistics { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
