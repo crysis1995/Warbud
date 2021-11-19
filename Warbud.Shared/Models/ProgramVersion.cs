@@ -1,4 +1,4 @@
-﻿namespace Warbud.Revit.Update.Models
+﻿namespace Warbud.Shared.Models
 {
     public class ProgramVersion
     {

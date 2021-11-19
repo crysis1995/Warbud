@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Warbud.Revit.Update.Models;
+using Warbud.Shared.Models;
 
 namespace Warbud.Revit.Update
 {
