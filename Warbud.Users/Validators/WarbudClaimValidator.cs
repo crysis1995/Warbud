@@ -1,43 +1,40 @@
 ﻿using System.Linq;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Warbud.Shared.Constants;
-using Warbud.Users.Infrastructure.Data;
-using Warbud.Users.Types.Inputs;
+using Warbud.Shared.Abstraction.Constants;
+using Warbud.Users.Application.Commands.WarbudClaim;
+using Warbud.Users.Application.Services;
 
 namespace Warbud.Users.Validators
 {
-    public class WarbudClaimInputValidator : AbstractValidator<AddWarbudClaimInput>
+    public class WarbudClaimInputValidator : AbstractValidator<AddWarbudClaim>
     {
-        public WarbudClaimInputValidator(IDbContextFactory<UserDbContext> dbContextFactory)
+        public WarbudClaimInputValidator(IUserReadService userReadService, IWarbudAppReadService appReadService)
         {
-            var dbContext = dbContextFactory.CreateDbContext();
-            
-            RuleFor(input => input.UserId).Custom((value, context) =>
+            RuleFor(input => input.UserId).Custom((id, context) =>
             {
-                var user = dbContext.ExternalUsers.Any(x => x.Id == value);
-                if (!user)
+                if (!userReadService.ExistsByIdAsync(id).Result)
                 {
                     context.AddFailure("UserId", "There is no user with given id");
                 }
             });
             
-            RuleFor(input => input.AppId).Custom((value, context) =>
+            RuleFor(input => input.AppId).Custom((id, context) =>
             {
-                var app = dbContext.WarbudApps.Any(x => x.Id == value);
-                if (!app)
+                if (!appReadService.ExistsAsync(id).Result)
                 {
                     context.AddFailure("AppId", "There is no app with given id");
                 }
             });
             
-           RuleFor(input => input.Name).NotEmpty().NotNull().Length(2, 50).Custom((name, context) =>
+            
+           RuleFor(input => input.Value).NotEmpty().NotNull().Length(2, 50).Custom((value, context) =>
            {
                var claimValue = Claim.Value.GetValueList();
 
-               if (claimValue.All(x => x != name))
+               if (claimValue.All(x => x != value))
                {
-                   context.AddFailure("Name", "Claim name value");
+                   context.AddFailure("Value", "Invalid claim value");
                }
            });
         }

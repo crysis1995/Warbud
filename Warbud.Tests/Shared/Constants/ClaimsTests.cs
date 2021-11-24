@@ -1,4 +1,4 @@
-using Warbud.Shared.Constants;
+using Warbud.Shared.Abstraction.Constants;
 using Xunit;
 
 namespace Warbud.Tests.Shared.Constants

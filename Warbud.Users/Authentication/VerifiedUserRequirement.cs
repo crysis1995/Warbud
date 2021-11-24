@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Warbud.Shared.Constants;
+using Warbud.Shared.Abstraction.Constants;
 
 namespace Warbud.Users.Authentication
 {

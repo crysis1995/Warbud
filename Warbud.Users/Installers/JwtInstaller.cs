@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Warbud.Shared.Options;
 using Warbud.Users.Authentication;
 
 namespace Warbud.Users.Installers

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Claim = Warbud.Shared.Abstraction.Constants.Claim;
 
 namespace Warbud.Users.Services
 {
@@ -22,6 +23,6 @@ namespace Warbud.Users.Services
         public ClaimsPrincipal User => _httpContextAccessor.HttpContext?.User;
 
         public Guid? GetUserId =>
-            User is null ? null : Guid.Parse(User.FindFirst(x => x.Type == Shared.Constants.Claim.Name.Id)?.Value);
+            User is null ? null : Guid.Parse(User.FindFirst(x => x.Type == Claim.Name.Id)?.Value);
     }
 }

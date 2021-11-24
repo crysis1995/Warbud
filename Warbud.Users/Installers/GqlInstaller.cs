@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Warbud.Shared.Abstraction.Markers;
 using Warbud.Users.GqlControllers;
-using Warbud.Users.Types;
+using Warbud.Users.Application;
 
 namespace Warbud.Users.Installers
 {
@@ -9,14 +11,19 @@ namespace Warbud.Users.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services
-                .AddGraphQLServer()
-                .AddQueryType<Query>()
-                .AddMutationType<Mutation>()
-                .AddType<ExternalUserType>()
+            var graphqlService = services.AddGraphQLServer();
+            graphqlService.AddQueryType<Query>().AddMutationType<Mutation>()
+                //.AddType<ExternalUserType>()
                 .AddFiltering()
                 .AddSorting()
-                .AddAuthorization();
+                .AddAuthorization();;
+
+            foreach (var type in typeof(Query).Assembly.GetTypes().OrderBy(e => e.Name))
+                if (type.GetInterface(nameof(IGqlOperation)) != null)
+                {
+                    services.AddScoped(type);
+                    graphqlService.AddTypeExtension(type);
+                }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using Warbud.Shared.Models;
+using Warbud.Shared.DTO;
 
 namespace Warbud.Revit.Update.Controllers
 {
@@ -9,25 +9,25 @@ namespace Warbud.Revit.Update.Controllers
     public class RevitController : ControllerBase
     {
 
-        private static ProgramVersion _programVersion;
+        private static ProgramVersionDto _programVersionDto;
 
-        public RevitController(ProgramVersion programVersion)
+        public RevitController(ProgramVersionDto programVersionDto)
         {
-            _programVersion = programVersion;
+            _programVersionDto = programVersionDto;
         }
 
         [HttpGet]
         public IActionResult Version()
         {
-            var result = JsonSerializer.Serialize(_programVersion);
+            var result = JsonSerializer.Serialize(_programVersionDto);
             return Ok(result);
         }
         
         [HttpPost]
-        public IActionResult UpdateVersions([FromBody] ProgramVersion programVersion)
+        public IActionResult UpdateVersions([FromBody] ProgramVersionDto programVersionDto)
         {
             //TODO update in file 
-            _programVersion = programVersion;
+            _programVersionDto = programVersionDto;
             return Ok();
         }
     }

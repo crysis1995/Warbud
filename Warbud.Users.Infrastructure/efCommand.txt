@@ -1,2 +1,2 @@
-﻿dotnet ef database update -s ../Warbud.Users
-dotnet ef migrations add updateUserIndexes -s ../Warbud.Users
+﻿cd *User*Infra*
+dotnet ef migrations add Init -s ../Warbud.Users -c WriteDbContext

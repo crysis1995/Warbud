@@ -2,11 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users", "Warbud.Users\Warbud.Users.csproj", "{08BCE828-E08A-43DA-86DE-1C94B06477A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Database", "Warbud.Users.Database\Warbud.Users.Database.csproj", "{CCAB3FA8-C282-4DA0-916E-DE27FB9D8AAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Domain", "Warbud.Users.Domain\Warbud.Users.Domain.csproj", "{CCAB3FA8-C282-4DA0-916E-DE27FB9D8AAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Infrastructure", "Warbud.Users.Infrastructure\Warbud.Users.Infrastructure.csproj", "{B9700B0B-0092-48D0-A222-71EE3355EB78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Types", "Warbud.Users.Types\Warbud.Users.Types.csproj", "{303FB1F0-3F95-47C6-A09C-B98B058D8152}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Application", "Warbud.Users.Application\Warbud.Users.Application.csproj", "{303FB1F0-3F95-47C6-A09C-B98B058D8152}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.ReverseProxy", "Warbud.ReverseProxy\Warbud.ReverseProxy.csproj", "{4E841743-BF19-4472-B438-3EBC12ECCD5A}"
 EndProject
@@ -23,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Projects.Infrastructure", "Warbud.Projects.Infrastructure\Warbud.Projects.Infrastructure.csproj", "{5F15D9B7-B217-4380-AC77-AED982D06ECC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Revit.Update", "Warbud.Revit.Update\Warbud.Revit.Update.csproj", "{744FE5B8-99FE-47C1-A315-385BE3726589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Shared.Abstraction", "Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj", "{0004F863-F6DA-455B-87A2-F50660C54E42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,5 +80,9 @@ Global
 		{744FE5B8-99FE-47C1-A315-385BE3726589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{744FE5B8-99FE-47C1-A315-385BE3726589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{744FE5B8-99FE-47C1-A315-385BE3726589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0004F863-F6DA-455B-87A2-F50660C54E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0004F863-F6DA-455B-87A2-F50660C54E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0004F863-F6DA-455B-87A2-F50660C54E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0004F863-F6DA-455B-87A2-F50660C54E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

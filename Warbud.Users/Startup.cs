@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Warbud.Shared;
+using Warbud.Shared.Abstraction.Constants;
 using Warbud.Users.Authentication;
-using Warbud.Shared.Constants;
+using Warbud.Users.Application;
+using Warbud.Users.Infrastructure;
 using Warbud.Users.Installers;
 using Warbud.Users.Services;
 
@@ -21,6 +24,11 @@ namespace Warbud.Users
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddShared();
+            services.AddApplication();
+            services.AddInfrastructure(_config);
+            services.AddControllers();
+            
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
             
@@ -42,6 +50,8 @@ namespace Warbud.Users
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+            
+            app.UseShared();
             app.UseRouting();
 
             app.UseAuthentication();

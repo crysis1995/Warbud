@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using HotChocolate.Language;
 using Microsoft.AspNetCore.Authorization;
 using HotChocolate.Resolvers;
-using Warbud.Shared.Constants;
+using Warbud.Shared.Abstraction.Constants;
 
 namespace Warbud.Users.Authentication
 {

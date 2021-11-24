@@ -5,14 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Warbud.Shared.Models;
+using Warbud.Shared.DTO;
 
 namespace Warbud.Revit.Update
 {
     public class Startup
     {
         private readonly IConfiguration _config;
-        private static ProgramVersion _programVersion = new();
+        private static ProgramVersionDto _programVersionDto = new();
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -20,8 +20,8 @@ namespace Warbud.Revit.Update
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(_programVersion);
-            _config.GetSection("ProgramVersion").Bind(_programVersion);
+            services.AddSingleton(_programVersionDto);
+            _config.GetSection("ProgramVersion").Bind(_programVersionDto);
             
             services.AddControllers()
                 .AddJsonOptions(options =>

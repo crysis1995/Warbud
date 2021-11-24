@@ -1,17 +1,13 @@
-﻿using System.Linq;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Warbud.Users.Infrastructure.Data;
-using Warbud.Users.Types.Inputs;
+﻿using FluentValidation;
+using Warbud.Users.Application.Commands.User;
+using Warbud.Users.Application.Services;
 
 namespace Warbud.Users.Validators
 {
-    public class ExternalUserInputValidator : AbstractValidator<AddExternalUserInput>
+    public class UserInputValidator : AbstractValidator<AddUser>
     {
-        public ExternalUserInputValidator(IDbContextFactory<UserDbContext> dbContextFactory)
+        public UserInputValidator(IUserReadService userReadService)
         {
-            var dbContext = dbContextFactory.CreateDbContext();
-
             RuleFor(input => input.Email)
                 .NotEmpty()
                 .EmailAddress();
@@ -22,10 +18,9 @@ namespace Warbud.Users.Validators
             RuleFor(input => input.ConfirmPassword)
                 .Equal(input => input.Password);
 
-            RuleFor(input => input.Email).Custom((value, context) =>
+            RuleFor(input => input.Email).Custom((email, context) =>
             {
-                var emailInUse = dbContext.ExternalUsers.Any(x => x.Email == value);
-                if (emailInUse)
+                if (userReadService.ExistsByEmailAsync(email).Result)
                 {
                     context.AddFailure("Email", "There is already user with given email");
                 }

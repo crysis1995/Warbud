@@ -1,17 +1,21 @@
-﻿using System.Linq;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Warbud.Users.Infrastructure.Data;
-using Warbud.Users.Types.Inputs;
+﻿using FluentValidation;
+using Warbud.Users.Application.Commands.WarbudApp;
 
 namespace Warbud.Users.Validators
 {
-    public class WarbudAppInputValidator : AbstractValidator<AddWarbudAppInput>
+    public class WarbudAppInputValidator : AbstractValidator<AddWarbudApp>
     {
         public WarbudAppInputValidator()
         {
-            RuleFor(input => input.AppName).NotEmpty().NotNull().Length(2, 50);
-            RuleFor(input => input.ModuleName).NotEmpty().NotNull().Length(2, 50);
+            RuleFor(input => input.AppName)
+                .NotEmpty()
+                .NotNull()
+                .Length(2, 50);
+            
+            RuleFor(input => input.ModuleName)
+                .NotEmpty()
+                .NotNull()
+                .Length(2, 50);
         }
     }
 }
