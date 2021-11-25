@@ -24,22 +24,25 @@ namespace Warbud.Users.GqlControllers.WarbudClaim
 
 
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task AddClaimAsync(AddWarbudClaim command)
+        public async Task<bool> AddClaimAsync(AddWarbudClaim command)
         {
             await _claimValidator.ValidateAsync(command);
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
 
         [Authorize(Roles = new []{Role.Name.Admin})]
-        public async Task UpdateClaimAsync(UpdateWarbudClaim command)
+        public async Task<bool> UpdateClaimAsync(UpdateWarbudClaim command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
 
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task DeleteClaimAsync(RemoveWarbudClaim command)
+        public async Task<bool> DeleteClaimAsync(RemoveWarbudClaim command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
     }
 }

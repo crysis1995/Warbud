@@ -22,28 +22,32 @@ namespace Warbud.Users.GqlControllers.User
             _commandDispatcher = commandDispatcher;
         }
 
-        public async Task AddUserAsync(AddUser command)
+        public async Task<bool> AddUserAsync(AddUser command)
         {
             await _userValidator.ValidateAndThrowAsync(command);
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
 
         [Authorize(Policy = Policy.Name.AdminOrOwner)]
-        public async Task UpdateUserAsync(UpdateUser command)
+        public async Task<bool> UpdateUserAsync(UpdateUser command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
 
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task UpdateUserRoleAsync(UpdateUserRole command)
+        public async Task<bool> UpdateUserRoleAsync(UpdateUserRole command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
 
         [Authorize(Roles = new []{Role.Name.Admin})]
-        public async Task DeleteUserAsync(RemoveUser command)
+        public async Task<bool> DeleteUserAsync(RemoveUser command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
     }
 }

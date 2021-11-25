@@ -22,22 +22,25 @@ namespace Warbud.Users.GqlControllers.WarbudApp
         }
 
         [Authorize(Roles = new []{Role.Name.Admin})]
-        public async Task AddAppAsync(AddWarbudApp command)
+        public async Task<bool> AddAppAsync(AddWarbudApp command)
         {
             await _appValidator.ValidateAndThrowAsync(command);
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
         
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task UpdateAppAsync(UpdateWarbudApp command)
+        public async Task<bool> UpdateAppAsync(UpdateWarbudApp command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
         
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task DeleteAppAsync(RemoveWarbudApp command)
+        public async Task<bool> DeleteAppAsync(RemoveWarbudApp command)
         {
             await _commandDispatcher.DispatchAsync(command);
+            return true;
         }
     }
 }

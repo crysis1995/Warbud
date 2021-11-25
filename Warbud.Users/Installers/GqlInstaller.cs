@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Warbud.Shared.Abstraction.Markers;
 using Warbud.Users.GqlControllers;
-using Warbud.Users.Application;
 
 namespace Warbud.Users.Installers
 {
@@ -12,13 +11,15 @@ namespace Warbud.Users.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             var graphqlService = services.AddGraphQLServer();
-            graphqlService.AddQueryType<Query>().AddMutationType<Mutation>()
+            graphqlService
+                .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
                 //.AddType<ExternalUserType>()
                 .AddFiltering()
                 .AddSorting()
-                .AddAuthorization();;
+                .AddAuthorization();
 
-            foreach (var type in typeof(Query).Assembly.GetTypes().OrderBy(e => e.Name))
+            foreach (var type in typeof(Query).Assembly.GetTypes())
                 if (type.GetInterface(nameof(IGqlOperation)) != null)
                 {
                     services.AddScoped(type);

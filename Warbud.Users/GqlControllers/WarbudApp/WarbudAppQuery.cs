@@ -13,30 +13,30 @@ using Warbud.Users.Application.Queries.WarbudApp;
 namespace Warbud.Users.GqlControllers.WarbudApp
 {
     [ExtendObjectType(nameof(Query))]
-    public class WarbudAppGql : GqlBase, IGqlOperation
+    public class WarbudAppQuery : GqlQueryBase, IGqlOperation
     {
         private readonly IQueryDispatcher _queryDispatcher;
 
-        public WarbudAppGql(IQueryDispatcher queryDispatcher)
+        public WarbudAppQuery(IQueryDispatcher queryDispatcher)
         {
             _queryDispatcher = queryDispatcher;
         }
 
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<ActionResult<WarbudAppDto>> GetAppById(GetWarbudApp query)
+        public async Task<WarbudAppDto> GetAppById(GetWarbudApp query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
-            return OkOrNotFound(result);
+            return OkOrNotFoundGql(result);
         }
 
         [Authorize(Policy = Policy.Name.VerifiedUser)]
         [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
         [UseFiltering]
         [UseSorting]
-        public async Task<ActionResult<IEnumerable<WarbudAppDto>>> GetApps(GetWarbudApps query)
+        public async Task<IEnumerable<WarbudAppDto>> GetApps()
         {
-            var result = await _queryDispatcher.QueryAsync(query);
-            return OkOrNotFound(result);
+            var result = await _queryDispatcher.QueryAsync(new GetWarbudApps());
+            return OkOrNotFoundGql(result);
         }
     }
 }

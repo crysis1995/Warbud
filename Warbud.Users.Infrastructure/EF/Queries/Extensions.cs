@@ -8,11 +8,11 @@ namespace Warbud.Users.Infrastructure.EF.Queries
         public static UserDto AsDto(this UserReadModel readModel)
             => new()
             {
-                //TODO Role?
                 Id = readModel.Id,
                 FirstName = readModel.FirstName,
                 LastName = readModel.LastName,
-                Email = readModel.Email
+                Email = readModel.Email,
+                Role = readModel.Role
             };
         
         public static WarbudAppDto AsDto(this WarbudAppReadModel readModel)

@@ -41,7 +41,7 @@ namespace Warbud.Users.Infrastructure.EF.Queries.User.Handlers
 
             var claims = new List<System.Security.Claims.Claim>
             {
-                new(Claim.Name.Id, user.Id.ToString()),
+                new(Claim.Name.Id, user.Id.Value.ToString()),
                 new(Claim.Name.Role, $"{user.Role.ToString()}")
             };
 
