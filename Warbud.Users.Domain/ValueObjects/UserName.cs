@@ -1,8 +1,9 @@
-﻿using Warbud.Users.Domain.Exceptions;
+﻿using Warbud.Shared.Abstraction.Interfaces;
+using Warbud.Users.Domain.Exceptions;
 
 namespace Warbud.Users.Domain.ValueObjects
 {
-    public class UserName
+    public record UserName : IValueType<string>
     {
         public UserName(string value)
         {
@@ -12,7 +13,7 @@ namespace Warbud.Users.Domain.ValueObjects
             }
             Value = value;
         }
-        public string Value { get; }
+        public string Value { get; private set; }
         
         public static implicit operator string(UserName userName)
             => userName.Value;

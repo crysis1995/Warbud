@@ -1,11 +1,12 @@
 ﻿using System;
+using Warbud.Shared.Abstraction.Interfaces;
 using Warbud.Users.Domain.Exceptions;
 
 namespace Warbud.Users.Domain.ValueObjects
 {
-    public record UserId
+    public record UserId : IValueType<Guid>
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set; }
 
         public UserId(Guid value)
         {

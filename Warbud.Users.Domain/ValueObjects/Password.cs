@@ -1,8 +1,9 @@
-﻿using Warbud.Users.Domain.Exceptions;
+﻿using Warbud.Shared.Abstraction.Interfaces;
+using Warbud.Users.Domain.Exceptions;
 
 namespace Warbud.Users.Domain.ValueObjects
 {
-    public class Password
+    public record Password : IValueType<string>
     {
         public Password(string value)
         {
@@ -12,12 +13,13 @@ namespace Warbud.Users.Domain.ValueObjects
             }
             Value = value;
         }
-        public string Value { get; }
         
         public static implicit operator string(Password email)
             => email.Value;
         
         public static implicit operator Password(string email)
             => new(email);
+
+        public string Value { get; private set; }
     }
 }

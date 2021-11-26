@@ -9,5 +9,5 @@ namespace Warbud.Users.Application.Commands.User
     /// </summary>
     /// <param name="Id"></param>
     /// <param name="Role"></param>
-    public record UpdateUserRole(Guid Id, Role Role) : ICommand;
+    public record UpdateUserRole(Guid Id, Role Role) : ICommand, IInput<Guid>;
 }

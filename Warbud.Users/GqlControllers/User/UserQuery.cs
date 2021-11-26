@@ -37,7 +37,7 @@ namespace Warbud.Users.GqlControllers.User
             return OkOrNotFoundGql(result);
         }
 
-        [Authorize(Roles = new[] {Role.Name.BasicUser})]
+        [Authorize(Policy = Policy.Name.VerifiedUser)]
         [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
         [UseFiltering]
         [UseSorting]
@@ -47,15 +47,8 @@ namespace Warbud.Users.GqlControllers.User
             return OkOrNotFoundGql(result);
         }
 
-        [Authorize(Roles = new[] {Role.Name.BasicUser})]
-        public async Task<UserDto> GetUser([FromBody] GetUserById query)
-        {
-            var result = await _queryDispatcher.QueryAsync(query);
-            return OkOrNotFoundGql(result);
-        }
-
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<UserDto> GetUsersById([FromBody] GetUserById query)
+        public async Task<UserDto> GetUser([FromBody] GetUserById query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFoundGql(result);
