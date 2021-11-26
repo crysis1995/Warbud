@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace Warbud.Shared.Exceptions
             {
                 await next(context);
             }
-            catch (WarbudException ex)
+            catch (Exception ex)
             {
                 context.Response.StatusCode = 400;
                 context.Response.Headers.Add("content-type", "application/json");

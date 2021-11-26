@@ -44,7 +44,7 @@ namespace Warbud.Users.GqlControllers.User
         }
 
         [Authorize(Roles = new []{Role.Name.Admin})]
-        public async Task<bool> DeleteUserAsync(RemoveUser command)
+        public async Task<bool> RemoveUserAsync(RemoveUser command)
         {
             await _commandDispatcher.DispatchAsync(command);
             return true;

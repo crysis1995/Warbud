@@ -49,9 +49,9 @@ namespace Warbud.Users
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
-            
             app.UseShared();
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
             app.UseRouting();
 
             app.UseAuthentication();

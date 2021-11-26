@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
-using Microsoft.AspNetCore.Mvc;
 using Warbud.Shared.Abstraction.Constants;
 using Warbud.Shared.Abstraction.Markers;
 using Warbud.Shared.Abstraction.Queries;
@@ -23,7 +22,7 @@ namespace Warbud.Users.GqlControllers.WarbudApp
         }
 
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<WarbudAppDto> GetAppById(GetWarbudApp query)
+        public async Task<WarbudAppDto> GetApp(GetWarbudApp query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFoundGql(result);

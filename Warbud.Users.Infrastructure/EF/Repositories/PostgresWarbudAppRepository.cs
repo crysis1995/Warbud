@@ -33,7 +33,7 @@ namespace Warbud.Users.Infrastructure.EF.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(WarbudApp app)
+        public async Task RemoveAsync(WarbudApp app)
         {
             _apps.Remove(app);
             await _context.SaveChangesAsync();

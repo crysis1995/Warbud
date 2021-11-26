@@ -9,6 +9,6 @@ namespace Warbud.Users.Domain.Repositories
         Task<WarbudApp> GetAsync(int id);
         Task AddAsync(WarbudApp app);
         Task UpdateAsync(WarbudApp app);
-        Task DeleteAsync(WarbudApp app);
+        Task RemoveAsync(WarbudApp app);
     }
 }

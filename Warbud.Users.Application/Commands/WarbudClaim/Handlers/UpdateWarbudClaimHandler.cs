@@ -22,7 +22,7 @@ namespace Warbud.Users.Application.Commands.WarbudClaim.Handlers
                 throw new ClaimNotFoundException();
             }
             claim.Value = value;
-            await _repository.RemoveAsync(claim);
+            await _repository.UpdateAsync(claim);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Warbud.Users.Application.Commands.WarbudApp.Handlers
             {
                 throw new AppNotFoundException();
             }
-            await _warbudAppRepository.DeleteAsync(warbudApp);
+            await _warbudAppRepository.RemoveAsync(warbudApp);
         }
     }
 }

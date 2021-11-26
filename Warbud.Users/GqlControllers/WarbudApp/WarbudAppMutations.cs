@@ -37,7 +37,7 @@ namespace Warbud.Users.GqlControllers.WarbudApp
         }
         
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task<bool> DeleteAppAsync(RemoveWarbudApp command)
+        public async Task<bool> RemoveAppAsync(RemoveWarbudApp command)
         {
             await _commandDispatcher.DispatchAsync(command);
             return true;

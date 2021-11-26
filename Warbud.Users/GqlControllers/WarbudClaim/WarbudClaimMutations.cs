@@ -39,7 +39,7 @@ namespace Warbud.Users.GqlControllers.WarbudClaim
         }
 
         [Authorize(Roles = new []{ Role.Name.Admin})]
-        public async Task<bool> DeleteClaimAsync(RemoveWarbudClaim command)
+        public async Task<bool> RemoveClaimAsync(RemoveWarbudClaim command)
         {
             await _commandDispatcher.DispatchAsync(command);
             return true;
