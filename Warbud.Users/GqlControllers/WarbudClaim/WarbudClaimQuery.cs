@@ -32,7 +32,7 @@ namespace Warbud.Users.GqlControllers.WarbudClaim
         [UsePaging(IncludeTotalCount = true, MaxPageSize = 50)]
         [UseFiltering]
         [UseSorting]
-        public async Task<IEnumerable<WarbudClaimDto>> GetAllWarbudClaimByUserId(GetWarbudClaimsByUserId query)
+        public async Task<IEnumerable<WarbudClaimDto>> GetClaimsByUserId(GetWarbudClaimsByUserId query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFoundGql(result);
