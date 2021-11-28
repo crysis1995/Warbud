@@ -15,7 +15,7 @@ namespace Warbud.Shared.Exceptions
             {
                 await next(context);
             }
-            catch (Exception ex)
+            catch (WarbudException ex)
             {
                 context.Response.StatusCode = 400;
                 context.Response.Headers.Add("content-type", "application/json");

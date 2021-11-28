@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Warbud.Shared;
 using Warbud.Shared.Abstraction.Constants;
 using Warbud.Users.Authentication;
@@ -42,6 +43,11 @@ namespace Warbud.Users
             
             services.AddSingleton<IAuthorizationHandler, VerifiedUserRequirementsHandler>();
             services.AddSingleton<IAuthorizationHandler, AdminOrOwnerRequirementHandler>();
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Warbud.Api", Version = "v1"});
+            });
 
             
             services.InstallServicesInAssembly(_config);
@@ -49,16 +55,23 @@ namespace Warbud.Users
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                
+            }
             app.UseShared();
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warbud.Api v1"));
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapGraphQL());
-            app.UseGraphQLVoyager();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            //app.UseGraphQLVoyager();
         }
     }
 }
