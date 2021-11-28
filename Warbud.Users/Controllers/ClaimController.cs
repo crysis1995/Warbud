@@ -59,9 +59,9 @@ namespace Warbud.Users.Controllers
             return OkOrNotFound(result);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet]
         [Authorize(Policy = Policy.Name.AdminOrOwner)]
-        public async Task<ActionResult<IEnumerable<WarbudClaimDto>>> GetClaimsByUserId([FromRoute] GetWarbudClaimsByUserId query)
+        public async Task<ActionResult<IEnumerable<WarbudClaimDto>>> GetClaimsByUserId([FromBody] GetWarbudClaimsByUserId query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
@@ -69,7 +69,7 @@ namespace Warbud.Users.Controllers
 
         [HttpGet]
         [Authorize(Roles = new[] {Role.Name.Admin})]
-        public  ActionResult<IEnumerable<string>> GetClaimsName()
+        public  ActionResult<IEnumerable<string>> GetClaimValues()
         {
             var result =  Claim.Value.GetValueList();
             if (result is null)

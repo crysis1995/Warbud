@@ -84,9 +84,9 @@ namespace Warbud.Users.Controllers
             return OkOrNotFound(result);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet]
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<ActionResult<UserDto>> GetUser([FromRoute] GetUserById query)
+        public async Task<ActionResult<UserDto>> GetUser([FromBody] GetUserById query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);

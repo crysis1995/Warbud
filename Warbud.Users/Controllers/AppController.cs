@@ -27,9 +27,9 @@ namespace Warbud.Users.Controllers
             _commandDispatcher = commandDispatcher;
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet]
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<ActionResult<WarbudAppDto>> GetApp([FromRoute] GetWarbudApp query)
+        public async Task<ActionResult<WarbudAppDto>> GetApp([FromBody] GetWarbudApp query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
