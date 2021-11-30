@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Revit.Update", "Warb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Shared.Abstraction", "Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj", "{0004F863-F6DA-455B-87A2-F50660C54E42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Revit.Statistics", "Warbud.Revit.Statistics\Warbud.Revit.Statistics.csproj", "{720A7316-83CA-43E8-9D97-97567ACED381}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +86,9 @@ Global
 		{0004F863-F6DA-455B-87A2-F50660C54E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0004F863-F6DA-455B-87A2-F50660C54E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0004F863-F6DA-455B-87A2-F50660C54E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720A7316-83CA-43E8-9D97-97567ACED381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720A7316-83CA-43E8-9D97-97567ACED381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720A7316-83CA-43E8-9D97-97567ACED381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720A7316-83CA-43E8-9D97-97567ACED381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
